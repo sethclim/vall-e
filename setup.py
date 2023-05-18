@@ -10,13 +10,7 @@ def shell(*args):
 
 
 def write_version(version_core, pre_release=True):
-    if pre_release:
-        time = shell("git", "log", "-1", "--format=%cd", "--date=iso")
-        time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S %z")
-        time = time.strftime("%Y%m%d%H%M%S")
-        version = f"{version_core}-dev{time}"
-    else:
-        version = version_core
+    version = version_core
 
     with open(Path("vall_e", "version.py"), "w") as f:
         f.write('__version__ = "{}"\n'.format(version))
@@ -24,7 +18,7 @@ def write_version(version_core, pre_release=True):
     return version
 
 
-with open("README.md", "r") as f:
+with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
